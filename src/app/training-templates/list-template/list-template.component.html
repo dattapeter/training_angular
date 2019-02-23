@@ -1,0 +1,29 @@
+<div *ngIf="templates.length > 0">
+  <div class="card-columns">
+    <div class="card text-white bg-dark" *ngFor="let template of templates">
+      <div>
+        <div class="card-header">
+          <h3>{{ template.title }}</h3>
+        </div>
+        <div class="card-body">
+          <p class="card-text">{{ template.description }}</p>
+        </div>
+        <div class="card-footer">
+          <button type="button" class="btn btn-sm btn-info mx-2 float float-left">Assign to</button>
+          <div class="float float-right dropright">
+            <button class="float float-right btn btn-default btn-sm text-white" data-toggle="dropdown"
+              aria-haspopup="true" aria-expanded="false">
+              Manage <span class="pi pi-cog"></span>
+            </button>
+            <div class="dropdown-menu bg-transparent">
+              <button class="dropdown-item btn btn-sm bg-danger" (click)="onDelete(template.id)">Delete</button>
+              <button class="dropdown-item btn btn-sm bg-warning" (click)="onEdit(template.id)">Edit</button>
+              <button class="dropdown-item btn btn-sm bg-info" (click)="onManageTraining(template.id)">Manage
+                Trainings</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

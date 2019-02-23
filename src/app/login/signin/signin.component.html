@@ -1,0 +1,26 @@
+<div class="row m-auto">
+    <div class="col-sm-2 col-md-3">
+    </div>
+    <div class="col-sm-8 col-xs-10 col-md-6 mt-5">
+      <div class="card text-white card-form bg-dark">
+        <div class="card-block py-4">
+          <h4 class="d-flex justify-content-center">User Login</h4>
+          <br>
+          <form class="mx-5" (ngSubmit)="onSignin(form)" #form="ngForm">
+            <div class="form-group">
+              <input type="text" name="email" placeholder="Email ID" class="form-control" ngModel required>
+              <!-- <small id="uidHelp" class="form-text text-muted">Please enter UID for login.</small> -->
+            </div>
+            <div class="form-group">
+              <input type="password" name="password" placeholder="Enter password" class="form-control" ngModel required>
+            </div>
+            <br>
+            <input type="submit" value="LOGIN" class="btn-block btn btn-warning">
+          </form>
+        </div>
+      </div>
+    </div>
+    <div class="col-sm-2">
+
+    </div>
+  </div>

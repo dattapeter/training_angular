@@ -1,0 +1,21 @@
+<app-training-list></app-training-list>
+<hr>
+<div class="float float-right">
+  <button class="btn btn-success" data-toggle="modal" data-target="#trainingModal">Add Training</button>
+</div>
+
+<div class="modal fade" id="trainingModal" tabindex="-1" role="dialog" aria-labelledby="trainingModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content bg-dark">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Add Training</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span class="text-white" aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <app-add-training [templateId]="templateId"></app-add-training>
+    </div>
+    </div>
+  </div>
+</div>

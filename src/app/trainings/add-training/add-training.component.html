@@ -1,0 +1,18 @@
+<div>
+  <form (ngSubmit)="onSubmit()" #form="ngForm">
+    <div class="form-row">
+      <div class="col-8">
+        <input type="text" class="form-control" placeholder="Topic" ngModel name="topic" required>
+        <small id="topicHelp" class="form-text text-muted">Training Topic to be covered</small>
+      </div>
+      <div class="col-3">
+        <input type="text" class="form-control" placeholder="Duration" ngModel name="duration" required>
+        <small id="topicHelp" class="form-text text-muted">in hours</small>
+      </div>
+      <div class="col-1">
+          <button type="submit" class="btn btn-success" [disabled]="!form.valid">
+            <span> <strong>+</strong></span></button>
+       </div>
+    </div>
+  </form>
+</div>
