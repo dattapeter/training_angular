@@ -1,71 +1,58 @@
 import { TrainingTemplate } from './training-template.model';
 import { Subject, pipe } from 'rxjs';
-import { map } from 'rxjs/operators';
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { AuthService } from '../login/auth.service';
-
-class UserTemplate {
-    constructor(
-        public userId: string,
-        public templates: TrainingTemplate[] 
-    ) {}
-}
-
+import '../shared/environment.setting';
+import { Environment } from '../shared/environment.setting';
+import { TrainingService } from '../trainings/training.service';
 
 @Injectable()
 export class TemplateService {
 
     public templateListChanged = new Subject();
 
-    private userTemplate = new UserTemplate(this.authService.UID, [])
+    private templates: TrainingTemplate[] = [];
 
     constructor(private httpClient: HttpClient,
-                private authService: AuthService) {
+                private trainingService: TrainingService) {
 
     }
 
     getTemplates() {
-        this.httpClient.get<UserTemplate>('https://d-training.firebaseio.com/data.json')
+        this.httpClient.get<TrainingTemplate[]>(`${Environment.url}/templates`)
         .subscribe(
-            response => {
-                if(response) {
-                    this.userTemplate.templates = response.templates
-                    this.templateListChanged.next(this.userTemplate.templates)
+            templates => {
+                if(templates) {
+                    this.templates = templates
+                    this.templateListChanged.next(this.templates)
                 }    
             }
         );
-        return this.userTemplate.templates;
+        return this.templates;
     };
 
-    getTemplate(id: number): TrainingTemplate {
-        const index = this.userTemplate.templates.findIndex(template => template.id === id);
-        return this.userTemplate.templates[index]
-    }
-
     addTemplate(newTemplate: TrainingTemplate) {
-        
-        this.userTemplate.templates.push(newTemplate);
-
-        this.httpClient.put('https://d-training.firebaseio.com/data.json', this.userTemplate)
+        this.httpClient.post(`${Environment.url}/add-template`, newTemplate)
             .subscribe(
-                response =>  {},
+                (template: TrainingTemplate) =>  this.templates.push(template),
                 error => console.log(error)
             )
      };
 
-    updateTemplates(){
-        this.httpClient.put('https://d-training.firebaseio.com/data.json', this.userTemplate)
-        .subscribe(
-            response => {
-                this.templateListChanged.next(this.userTemplate)}
-        );
-    }
-
     deleteTemplate(id: number) {
-        let index: number = this.userTemplate.templates.findIndex(template => template.id === id);
+        let index: number = this.templates.findIndex(template => template._id === id);
         if (index > -1) {
-            this.userTemplate.templates.splice(index, 1);
+            this.templates.splice(index, 1);
         }
     };
+
+    getTemplate(id: number): TrainingTemplate {
+        let index = this.templates.findIndex(template => template._id === id);
+        return this.templates[index];
+    }
+
+    updateTrainings(modifiedTemplate: TrainingTemplate){
+        modifiedTemplate['trainings'] = this.trainingService.getTrainingList();
+        return this.httpClient.patch(`${Environment.url}/template/${modifiedTemplate._id}`, modifiedTemplate)
+    }
 };

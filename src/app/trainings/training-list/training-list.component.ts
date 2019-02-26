@@ -2,7 +2,8 @@ import { Component, OnInit, OnDestroy, Input } from '@angular/core';
 import { Training } from '../training.model';
 import { TrainingService } from '../training.service';
 import { Subscription } from 'rxjs';
-import { ActivatedRoute, Params } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
+import { TrainingTemplate } from 'src/app/training-templates/training-template.model';
 
 @Component({
   selector: 'app-training-list',
@@ -12,34 +13,27 @@ import { ActivatedRoute, Params } from '@angular/router';
 
 export class TrainingListComponent implements OnInit, OnDestroy {
 
-  templateId: number;
-  trainings: Training [] = [];
+  trainings: Training[] = [];
   private trainingListSubscription: Subscription;
 
   constructor(private trainigService: TrainingService,
-              private route: ActivatedRoute) {}
+    private route: ActivatedRoute) { }
 
   ngOnInit() {
-    this.route.params
-    .subscribe(
-      (params: Params) =>  {this.templateId = +params['templateId'] 
-      this.trainings = this.trainigService.getTrainingList(this.templateId);
-    })
-
+    this.trainings = this.trainigService.getTrainingList();
     this.trainingListSubscription = this.trainigService.trainingListChanged
-        .subscribe(
-          () => {
-            this.trainings = this.trainigService.getTrainingList(this.templateId);
-          }
-        )
+      .subscribe(
+        () => {
+          this.trainings = this.trainigService.getTrainingList();
+        }
+      )
   }
 
-  deleteTraining(training: Training){
-    this.trainigService.deleteTraining(this.templateId,training);
+  deleteTraining(training: Training) {
+    this.trainigService.deleteTraining(training);
   }
 
-  ngOnDestroy(){
+  ngOnDestroy() {
     this.trainingListSubscription.unsubscribe();
   }
-
 }

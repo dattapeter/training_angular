@@ -1,5 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { ActivatedRoute, Params } from '@angular/router';
+import { TrainingTemplate } from '../training-templates/training-template.model';
+import { TrainingService } from './training.service';
 
 @Component({
   selector: 'app-trainings',
@@ -9,16 +10,12 @@ import { ActivatedRoute, Params } from '@angular/router';
 export class TrainingsComponent implements OnInit {
 
   addFlag = false;
-  @Input() templateId: number;
+  templateId: number;
+  @Input() template: TrainingTemplate;
 
-  constructor(private route: ActivatedRoute) { }
+  constructor(private trainingService: TrainingService) {}
 
   ngOnInit() {
-    this.route.params
-        .subscribe(
-          (params: Params) => {
-            this.templateId = +params['templateId']
-          } 
-        )
+    this.trainingService.setTrainings(this.template);
   }
 }

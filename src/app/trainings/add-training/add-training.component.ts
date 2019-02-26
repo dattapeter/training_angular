@@ -14,7 +14,6 @@ export class AddTrainingComponent implements OnInit {
   @Input() templateId: number;
   @ViewChild('form') form: NgForm;
 
-
   constructor(private trainingService: TrainingService,
               private route: ActivatedRoute){}
 
@@ -26,9 +25,7 @@ export class AddTrainingComponent implements OnInit {
   }
 
   onSubmit(){
-    this.trainingService.addTraining(
-      this.templateId, new Training(this.form.value.topic,this.form.value.duration)
-    );
+    this.trainingService.addTraining(new Training(this.form.value.topic,this.form.value.duration));
     this.form.reset();
   }
 }

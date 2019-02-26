@@ -3,43 +3,35 @@ import { Subject } from 'rxjs';
 
 import * as _ from 'lodash';
 import { Injectable } from '@angular/core';
-import { TemplateService } from '../training-templates/template.service';
+import { TrainingTemplate } from '../training-templates/training-template.model';
+
 
 @Injectable()
 export class TrainingService {
 
-    constructor(private templateService: TemplateService) {}
+    constructor() {}
  
     public trainingListChanged = new Subject();
+    private trainings: Training[] = [];
 
-    private trainingList: Training [] = []
-
-    getTrainingList(templateId: number): Training [] {
-        const trainingTemplate = this.templateService.getTemplate(templateId);
-        if(trainingTemplate['trainings']){
-            return trainingTemplate.trainings;
-        } else{
-            return []
-        }
-
+    setTrainings(template: TrainingTemplate) {
+        this.trainings = template['trainings'] ? [...template.trainings] : [];
     }
 
-    addTraining(templateId: number,training: Training) {
-        const trainingTemplate = this.templateService.getTemplate(templateId);
-        if(trainingTemplate['trainings']){
-            this.templateService.getTemplate(templateId)['trainings'].push(training);
-        } else{
-            trainingTemplate.trainings = [training]
-        }
+    getTrainingList(): Training[] {
+        return this.trainings;
+    };
+
+    addTraining(training: Training) {
+        this.trainings.push(training);
         this.trainingListChanged.next();
     }
 
-    deleteTraining(templateId: number, training: Training){
-        const trainingTemplate = this.templateService.getTemplate(templateId);
-        console.log(trainingTemplate);
-        const index = trainingTemplate.trainings.findIndex
+    deleteTraining(training: Training){
+        const index = this.trainings.findIndex
                     (t => t.topic === training.topic && t.duration == training.duration)
-        trainingTemplate.trainings.splice(index, 1);
+        this.trainings.splice(index, 1);
         this.trainingListChanged.next();
     }
+
 }
