@@ -9,18 +9,16 @@
           <p class="card-text">{{ template.description }}</p>
         </div>
         <div class="card-footer">
-          <button type="button" class="btn btn-sm btn-info mx-2 float float-left">Assign to</button>
-          <div class="float float-right dropright">
-            <button class="float float-right btn btn-default btn-sm text-white" data-toggle="dropdown"
-              aria-haspopup="true" aria-expanded="false">
-              Manage <span class="pi pi-cog"></span>
-            </button>
-            <div class="dropdown-menu bg-transparent">
-              <button class="dropdown-item btn btn-sm bg-danger" (click)="onDelete(template._id)">Delete</button>
-              <button class="dropdown-item btn btn-sm bg-warning" (click)="onEdit(template._id)">Edit</button>
-              <button class="dropdown-item btn btn-sm bg-info" (click)="onManageTraining(template._id)">Manage
-                Trainings</button>
-            </div>
+          <button class="btn btn-sm btn-info">Assign to</button>
+          <button class="btn btn-default btn-sm text-white float float-right" data-toggle="dropdown"
+            aria-haspopup="true" aria-expanded="false">
+            Manage <span class="pi pi-cog"></span>
+          </button>
+          <div class="dropdown-menu bg-transparent">
+            <button class="dropdown-item btn btn-sm bg-danger" (click)="onDelete(template._id)">Delete</button>
+            <button class="dropdown-item btn btn-sm bg-warning" (click)="onEdit(template._id)">Edit</button>
+            <button class="dropdown-item btn btn-sm bg-info" (click)="onManageTraining(template._id)">Manage
+              Trainings</button>
           </div>
         </div>
       </div>

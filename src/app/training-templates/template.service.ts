@@ -32,7 +32,7 @@ export class TemplateService {
     };
 
     addTemplate(newTemplate: TrainingTemplate) {
-        this.httpClient.post(`${Environment.url}/add-template`, newTemplate)
+        this.httpClient.post(`${Environment.url}/template`, newTemplate)
             .subscribe(
                 (template: TrainingTemplate) =>  this.templates.push(template),
                 error => console.log(error)
