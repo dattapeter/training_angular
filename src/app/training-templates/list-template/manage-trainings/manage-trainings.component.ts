@@ -32,7 +32,7 @@ export class ManageTrainingsComponent implements OnInit {
   onSave() {
     this.templateService.updateTrainings(this.template)
       .subscribe(
-        () => console.log('Trainings are saved successfully'),
+        () => {},
         e => console.log('Some error occurred')
       )
   }

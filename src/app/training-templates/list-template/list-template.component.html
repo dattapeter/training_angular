@@ -9,7 +9,7 @@
           <p class="card-text">{{ template.description }}</p>
         </div>
         <div class="card-footer">
-          <button class="btn btn-sm btn-info">Assign to</button>
+          <button class="btn btn-sm btn-info" (click)="onAssignTo(template._id)">Assign to</button>
           <button class="btn btn-default btn-sm text-white float float-right" data-toggle="dropdown"
             aria-haspopup="true" aria-expanded="false">
             Manage <span class="pi pi-cog"></span>

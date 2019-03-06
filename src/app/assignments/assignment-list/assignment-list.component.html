@@ -1,20 +1,36 @@
-<div class="card-columns">
-  <div class="card text-white bg-dark" *ngFor="let template of templates; let i = index">
-      <div>
-          <div class="card-header">
-            <h3>Developer Name</h3>  
-          </div>
-          <div class="card-title">
-            <h3>assignment header</h3>  
-          </div>
-          <div class="card-body">
-              <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-          </div>
-          <div class="card-footer float float-right">
-              <button type="button" class="btn btn-sm btn-info mx-2" (click)="onModify(template.id)">Assign to</button>
-              <button type="button" class="btn btn-sm btn-warning mx-2" (click)="onModify(template.id)">Modify</button>
-              <button type="button" class="btn btn-sm btn-danger mx-2">Delete</button>
-          </div>    
-      </div>
-  </div>
-</div>
+  <table class="table table-hover table-borderless">
+      <thead class="bg-warning text-dark">
+          <tr>
+            <th>Topic</th>
+            <th>Duration</th>
+            <th>Start Date</th>
+            <th>End Date</th>
+            <th>Trainer</th>
+            <th>Status</th>
+          </tr> 
+        </thead>   
+        <br>
+        <tbody>
+            <tr *ngFor="let assignment of assignments, let i = index">
+              <td>{{ assignment.topic}}</td>
+              <td>{{ assignment.duration}}</td> 
+              <td>{{ assignment.startDate}}</td> 
+              <td>{{ assignment.endDate}}</td> 
+              <td>{{ assignment.trainer}}</td>
+              <td>{{ assignment.status | uppercase}}
+                <span class="btn-group btn-group-vertical" role="group">
+                    <button type="button" class="btn dropdown-toggle float float-left" 
+                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  </button>
+                    <div class="dropdown-menu bg-transparent" aria-labelledby="btnGroupDrop1">
+                        <button class="dropdown-item btn btn-sm bg-danger" (click)="OnStatusUpdate(i, 'TO START')">To Start</button>
+                        <button class="dropdown-item btn btn-sm bg-warning" (click)="OnStatusUpdate(i, 'IN PROGRESS')">In Progress</button>
+                        <button class="dropdown-item btn btn-sm bg-success" (click)="OnStatusUpdate(i, 'COMPLETED')">Completed</button>
+                    </div>      
+                </span>
+              </td>
+            </tr>
+        </tbody> 
+  </table>
+  <button class="btn btn-success float float-right">Update</button>
+

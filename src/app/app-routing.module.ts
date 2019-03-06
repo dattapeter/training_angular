@@ -11,10 +11,12 @@ import { AddTemplateComponent } from './training-templates/add-template/add-temp
 import { AssignmentsComponent } from './assignments/assignments.component';
 import { ManageTrainingsComponent } from './training-templates/list-template/manage-trainings/manage-trainings.component';
 import { AuthGuard } from './shared/auth-guard.service';
+import { TemplateAssignmentComponent } from './training-templates/list-template/template-assignment/template-assignment.component';
+import { HomeComponent } from './home/home.component';
 
 const appRoutes: Routes = [
-    {path: '', component: AssignmentsComponent},
-    {path: 'assignments', component: AssignmentsComponent},
+    {path: '', component: HomeComponent},
+    {path: 'assignments', component: AssignmentsComponent, canActivate: [AuthGuard]},
     {path: 'training-templates', component: TrainingTemplatesComponent, canActivate: [AuthGuard]},
     {path: 'signup', component: SignupComponent},
     {path: 'signin', component: SigninComponent},
@@ -22,6 +24,7 @@ const appRoutes: Routes = [
     {path: 'add-template', component: AddTemplateComponent, canActivate: [AuthGuard]},
     {path: 'training-templates/:templateId/edit', component: EditTemplateComponent, canActivate: [AuthGuard]},
     {path: 'training-templates/:templateId/manage-trainings', component: ManageTrainingsComponent, canActivate: [AuthGuard]},
+    {path: 'training-templates/:templateId/template-assignment', component: TemplateAssignmentComponent, canActivate: [AuthGuard]},
     {path: 'not-found', component: Error404Component},
     {path: '**', redirectTo: '/not-found'}
   ]; 

@@ -1,6 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
 import { NgModule} from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './header/header.component';
@@ -26,6 +27,12 @@ import { AuthService } from './login/auth.service';
 import { AuthGuard } from './shared/auth-guard.service';
 import { EnvironmentService } from './shared/environment.service';
 import { AuthInterceptor } from './shared/auth.interceptor';
+import { AssignmentComponent } from './assignments/assignment-list/assignment/assignment.component' 
+import { AssignmentService } from './shared/assignment.service';
+import { TemplateAssignmentComponent } from './training-templates/list-template/template-assignment/template-assignment.component';
+import { OwlDateTimeModule, OwlNativeDateTimeModule } from 'ng-pick-datetime';
+import { BROWSER_ANIMATIONS_PROVIDERS } from '@angular/platform-browser/animations/src/providers';
+import { HomeComponent } from './home/home.component';
 
 @NgModule({
   declarations: [
@@ -45,16 +52,23 @@ import { AuthInterceptor } from './shared/auth.interceptor';
     AssignmentsComponent,
     AssignmentListComponent,
     ManageTrainingsComponent,
+    AssignmentComponent,
+    TemplateAssignmentComponent,
+    HomeComponent
   ],
   imports: [
     BrowserModule,
+    BrowserAnimationsModule,
     AppRoutingModule,
     FormsModule,
+    ReactiveFormsModule,
     HttpClientModule,
+    OwlDateTimeModule,
+    OwlNativeDateTimeModule 
   ],
-  providers: [ TrainingService, TemplateService, AuthService, 
+  providers: [ TrainingService, TemplateService, AuthService, AssignmentService,
                 AuthGuard, EnvironmentService,
-                // {provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true},
+                {provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true},
 
               ],
   bootstrap: [AppComponent]

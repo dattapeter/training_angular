@@ -31,6 +31,10 @@ export class ListTemplateComponent implements OnInit {
     this.router.navigate(['add-template'])
   }
 
+  onAssignTo(id: number){
+    this.router.navigate([id, 'template-assignment'], { relativeTo: this.route});
+  }
+
   onManageTraining(id: number) {
     this.router.navigate([id, 'manage-trainings'], { relativeTo: this.route });
   }

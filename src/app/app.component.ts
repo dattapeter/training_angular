@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import * as firebase from 'firebase';
 import { EnvironmentService } from './shared/environment.service';
 
 @Component({
@@ -12,8 +11,5 @@ export class AppComponent {
   constructor(private environment: EnvironmentService){}
 
   ngOnInit() {
-    firebase.initializeApp(
-      this.environment.config
-    );
   }
 }

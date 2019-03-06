@@ -2,7 +2,6 @@ import { TrainingTemplate } from './training-template.model';
 import { Subject, pipe } from 'rxjs';
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import '../shared/environment.setting';
 import { Environment } from '../shared/environment.setting';
 import { TrainingService } from '../trainings/training.service';
 

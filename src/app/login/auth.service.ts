@@ -1,8 +1,9 @@
 import { Router } from '@angular/router';
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpResponse} from '@angular/common/http';
-import { Environment } from '../shared/environment.setting';
+import { HttpClient, HttpResponse, HttpHeaders} from '@angular/common/http';
 import { Subject } from 'rxjs';
+import { Environment } from '../shared/environment.setting';
+import { User } from './user.model';
 
 @Injectable()
 export class AuthService {
@@ -14,23 +15,24 @@ export class AuthService {
               private httpClient: HttpClient) {}
 
   signupUser(uid: string, password: string) {
-      this.httpClient.post(`${Environment.url}/user/signup`, {uid, password})
+      this.httpClient.post<User>(`${Environment.url}/user/signup`, {uid, password})
         .subscribe(
-          (response: HttpResponse<any>) => {
-            this.router.navigate(['/']);
-            this.token = response.headers.get('x-auth');
+          user => {
+            this.token = user.token;
             this.reset.next();
+            this.router.navigate(['/']);
           }
         )
   }
 
   signinUser(uid: string, password: string) {
-    this.httpClient.post<HttpResponse<any>>(`${Environment.url}/user/login`, {uid, password})
+    this.httpClient.post<User>(`${Environment.url}/user/login`, {uid, password})
         .subscribe(
-          response => {
-            this.router.navigate(['/']);
-            this.token = response.headers.get('x-auth');
-            this.reset.next();
+          user => {
+            this.UID = user.uid.toUpperCase();
+            this.token = user.token;
+            this.reset.next();  
+            this.router.navigate(['/']);          
           }
         );
   }
